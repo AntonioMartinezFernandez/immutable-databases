@@ -19,6 +19,8 @@ func handleErr(err error) {
 }
 
 func main() {
+	ctx := context.Background()
+
 	opts := immudb.DefaultOptions().
 		WithAddress("localhost").
 		WithPort(3322)
@@ -26,26 +28,26 @@ func main() {
 	client := immudb.NewClient().WithOptions(opts)
 
 	err := client.OpenSession(
-		context.TODO(),
+		ctx,
 		[]byte(`immudb`),
 		[]byte(`immudb`),
 		"defaultdb",
 	)
 	handleErr(err)
 
-	defer client.CloseSession(context.TODO())
+	defer client.CloseSession(ctx)
 
-	tx, err := client.NewTx(context.TODO())
+	tx, err := client.NewTx(ctx)
 	handleErr(err)
 
 	err = tx.SQLExec(
-		context.TODO(),
+		ctx,
 		`CREATE TABLE IF NOT EXISTS posts(id INTEGER AUTO_INCREMENT, personId VARCHAR[128], text VARCHAR[4096], active BOOLEAN, PRIMARY KEY id);`,
 		nil,
 	)
 	handleErr(err)
 
-	txh, err := tx.Commit(context.TODO())
+	txh, err := tx.Commit(ctx)
 	handleErr(err)
 
 	fmt.Printf("Successfully committed rows %d creating %s table\n", txh.UpdatedRows, "posts")
@@ -54,10 +56,10 @@ func main() {
 
 	nRows := 1000
 	for i := 0; i < nRows; i++ {
-		txRows, err := client.NewTx(context.TODO())
+		txRows, err := client.NewTx(ctx)
 		handleErr(err)
 		sqlExecErr := txRows.SQLExec(
-			context.TODO(),
+			ctx,
 			"INSERT INTO posts(personId, text, active) VALUES (@personId,@text, @active)",
 			map[string]interface{}{
 				"personId": uuid.New().String(),
@@ -66,12 +68,12 @@ func main() {
 			},
 		)
 		handleErr(sqlExecErr)
-		txhRows, err := txRows.Commit(context.TODO())
+		txhRows, err := txRows.Commit(ctx)
 		handleErr(err)
 		fmt.Printf("Successfully committed rows %d\n", txhRows.UpdatedRows)
 	}
 
-	reader, err := client.SQLQueryReader(context.TODO(), "SELECT * FROM posts", nil)
+	reader, err := client.SQLQueryReader(ctx, "SELECT * FROM posts", nil)
 	handleErr(err)
 
 	for reader.Next() {

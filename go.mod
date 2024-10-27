@@ -5,6 +5,9 @@ go 1.23.1
 require (
 	github.com/codenotary/immudb v1.9.5
 	github.com/go-faker/faker/v4 v4.5.0
+	github.com/google/uuid v1.4.0
+	github.com/jmoiron/sqlx v1.4.0
+	github.com/luna-duclos/instrumentedsql v1.1.3
 )
 
 require (
@@ -15,7 +18,6 @@ require (
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
-	github.com/google/uuid v1.4.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
