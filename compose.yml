@@ -8,7 +8,8 @@ services:
     networks:
       - minionetwork
     depends_on:
-      - minio
+      minio:
+        condition: service_healthy
     environment:
       IMMUDB_ADDRESS: 0.0.0.0
       IMMUDB_PORT: 3322
@@ -34,13 +35,19 @@ services:
       MINIO_ROOT_USER: minio-user
       MINIO_ROOT_PASSWORD: minio-password
     command: server /data --console-address ":9001"
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
+      interval: 5s
+      timeout: 30s
+      retries: 10
 
   createbuckets:
     image: minio/mc
     networks:
       - minionetwork
     depends_on:
-      - minio
+      minio:
+        condition: service_healthy
     entrypoint: >
       /bin/sh -c "
       /usr/bin/mc config host add minioserver http://minio:9000 minio-user minio-password;

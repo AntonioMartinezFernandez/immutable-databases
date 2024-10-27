@@ -43,8 +43,8 @@ func main() {
 
 	// even though the server address and port are defaults, setting them as a reference
 	opts := immudb.DefaultOptions().
-		WithAddress("localhost").
-		WithPort(3322)
+		WithAddress(IMMUDB_HOST).
+		WithPort(IMMUDB_PORT)
 
 	client := immudb.NewClient().WithOptions(opts)
 

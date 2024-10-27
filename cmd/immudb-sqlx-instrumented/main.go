@@ -9,6 +9,7 @@ import (
 	"github.com/codenotary/immudb/pkg/api/schema"
 	immudb "github.com/codenotary/immudb/pkg/client"
 	"github.com/codenotary/immudb/pkg/stdlib"
+
 	"github.com/jmoiron/sqlx"
 	"github.com/luna-duclos/instrumentedsql"
 )

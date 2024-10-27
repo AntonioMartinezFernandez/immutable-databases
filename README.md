@@ -11,19 +11,29 @@ Immutable databases performance and features analysis
 1. Run one of the following commands to run the application
 
 ```bash
+# Simple immudb client
 go run cmd/immudb/main.go
 ```
 
 or
 
 ```bash
-go run cmd/immudb-sqlx/main.go
+# SQLX client with logging
+go run cmd/immudb-sqlx-instrumented/main.go
 ```
 
 or
 
 ```bash
-go run cmd/immudb-sql-client/main.go
+# SQL standard client with logging
+go run cmd/immudb-stdlib-instrumented/main.go
+```
+
+or
+
+```bash
+# SQL standard client with transactions
+go run cmd/immudb-stdlib-tx/main.go
 ```
 
 ## Resources
