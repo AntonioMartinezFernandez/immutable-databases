@@ -15,11 +15,11 @@ services:
       IMMUDB_PORT: 3322
       IMMUDB_USER: immudb
       IMMUDB_PWD: immudb
-      IMMUDB_DBNAME: immudb
+      IMMUDB_DBNAME: defaultdb
       IMMUDB_TOKENSIZE: 64
+      IMMUDB_S3_STORAGE: true # enable S3 storage (false by default)
       IMMUDB_S3_ACCESS_KEY_ID: minio-user
       IMMUDB_S3_SECRET_KEY: minio-password
-      IMMUDB_S3_STORAGE: true
       IMMUDB_S3_BUCKET_NAME: immudb-bucket
       IMMUDB_S3_PATH_PREFIX: immudb-prefix
       IMMUDB_S3_ENDPOINT: http://minio:9000
